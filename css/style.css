@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* Default
+*/
+
 @font-face {
     font-family: digital-7;
     font-style: normal;
@@ -20,59 +23,26 @@ body {
 .wrapper {
     width: 100vw;
     overflow: hidden;
+    padding: 30px 5px;
 }
 
 .inner {
     maX-width: 480px;
     margin: 0 auto;
-    padding: 10px 5px;
 }
 
-#clock {
-    /* fonts */
-    font-family: digital-7, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 5em;
-    
-    /* other */
-    background-color: #fff;
-    color: #43556C;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
-    box-shadow: inset 0 0 50px 5px #fff;
+.box-shadow {
+    box-shadow: 0 0 10px 5px #0001;
 }
 
-#clock .division { position: relative;} 
-#clock .division::before { content: ':';}
-
-#processor {
-    height: 5px;
-    background-color: #dfe6e9;
-    position: relative;
+.muted {
+    font-size: 0.85em;
+    color: #A0A0A0;
 }
 
-#processor .point {
-    width: 10px;
-    height: 10px;
-    background-color: #3E6FCC;
-    border-radius: 50%;
-    position: absolute;
-    margin-left: -5px;
-    top: -2.5px;
-    left: 50%;
-}
 
-#processor .line {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 5px;
-    background-color: #3E6FCC;
-}
+/* 토스트 메세지
+*/
 
 .toast-message {
     max-width: 500px;
@@ -100,4 +70,88 @@ body {
     background-color: #e5495e;
     color: #fff;
     font-size: 1.5em;
+}
+
+/* 시계
+*/
+
+#clock {
+    /* fonts */
+    font-family: digital-7, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 5em;
+    
+    /* other */
+    background-color: #fff;
+    color: #43556C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+#clock .division { position: relative;} 
+#clock .division::before { content: ':';}
+
+/* 시계 밑 진행바
+*/
+
+#processor {
+    height: 5px;
+    background-color: #dfe6e9;
+    position: relative;
+}
+
+#processor .point {
+    width: 10px;
+    height: 10px;
+    background-color: #3E6FCC;
+    border-radius: 50%;
+    position: absolute;
+    margin-left: -5px;
+    top: -2.5px;
+    left: 50%;
+}
+
+#processor .line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 5px;
+    background-color: #3E6FCC;
+}
+
+
+/* 할일 리스트
+*/ 
+
+#todo-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    max-width: 480px;
+}
+
+#todo-push {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.05em;
+    border: 0;
+    background-color: #3E6FCC;
+    color: #fff;
+    cursor: pointer;
+}
+
+#todo-list .item {
+    width: 100%;
+    height: 80px;
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 10px;
 }

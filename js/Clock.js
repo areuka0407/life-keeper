@@ -58,10 +58,9 @@ class Clock {
 
 
     updateProcess(){
-        let width = this.$processor.offsetWidth;
-        let pixel = width - this.current_time * width / this.init_time;
+        let percent = 100 - this.current_time * 100 / this.init_time;
 
-        this.$p_line.style.width = pixel + "px";
-        this.$p_point.style.left = pixel + "px";
+        this.$p_line.style.width = percent + "%";
+        this.$p_point.style.left = percent + "%";
     }
 }
