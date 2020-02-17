@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+:root {
+    --main: #3e6fcc;
+}
+
+#app.rest {
+    --main: #0faa55;
+}
+
 /* Default
 */
 
@@ -15,6 +23,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+a, button { cursor: pointer; }
 ol, ul { list-style: none; }
 body {
     background-color: #f5f6fa;
@@ -27,12 +36,13 @@ body {
 }
 
 .inner {
-    maX-width: 480px;
+    max-width: 480px;
     margin: 0 auto;
+    padding: 10px;
 }
 
 .box-shadow {
-    box-shadow: 0 0 10px 5px #0001;
+    box-shadow: 0 1px 3px 1px #00000020;
 }
 
 .muted {
@@ -45,20 +55,33 @@ body {
 */
 
 .toast-message {
-    max-width: 500px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0005;
+    width: 100%;
+    height: 100%;
+}
+
+.toast-message > div {
+    max-width: calc(100% - 40px);
     padding: 20px 30px 20px 100px;
     color: #E5495E;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px #00000020;
     font-weight: 900;
     white-space: pre-line;
     position: fixed;
     overflow: hidden;
-    right: 10px;
-    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    margin: 20px;
+    word-break: keep-all;
 }
 
-.toast-message::before {
+.toast-message > div::before {
     content: '!';
     position: absolute;
     left: 0; top: 0;
@@ -89,10 +112,22 @@ body {
     justify-content: center;
     align-items: center;
     height: 150px;
+    position: relative;
 }
 
 #clock .division { position: relative;} 
 #clock .division::before { content: ':';}
+
+#app.rest #clock { color: var(--main); padding-top: 30px; }
+#app.rest #clock::before {
+    content: '쉬는 시간 적용 중...';
+    position: absolute;
+    font-size: 0.9rem;
+    opacity: 0.9;;
+    left: 50%;
+    top: 35px;
+    transform: translate(-50%, -50%);
+}
 
 /* 시계 밑 진행바
 */
@@ -106,7 +141,7 @@ body {
 #processor .point {
     width: 10px;
     height: 10px;
-    background-color: #3E6FCC;
+    background-color: var(--main);
     border-radius: 50%;
     position: absolute;
     margin-left: -5px;
@@ -118,9 +153,10 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+
     width: 50%;
     height: 5px;
-    background-color: #3E6FCC;
+    background-color: var(--main);
 }
 
 
@@ -143,15 +179,45 @@ body {
     align-items: center;
     font-size: 1.05em;
     border: 0;
-    background-color: #3E6FCC;
+    background-color: var(--main);
     color: #fff;
     cursor: pointer;
 }
 
 #todo-list .item {
     width: 100%;
-    height: 80px;
+    height: 70px;
     background-color: #fff;
     margin-top: 10px;
     padding: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
+
+#todo-list .btn-group {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#todo-list .btn-group > button {
+    width: 100%;
+    height: 50%;
+    color: #fff;
+    border: 0;
+    opacity: 0;
+    transition: 0.3s;
+}
+#todo-list .item:hover button {
+    transform: translate(0, 0);
+    opacity: 1;
+    transition: 0.5s;
+}
+
+#todo-list .btn-group .btn-edit { background-color: #3e6fcc; transform: translate(25px, -25px); }
+#todo-list .btn-group .btn-remove { background-color: #E8284B; transform: translate(25px, 25px); }

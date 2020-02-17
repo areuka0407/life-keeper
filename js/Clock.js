@@ -1,28 +1,47 @@
 class Clock {
-    constructor(init_time){
-        this.init_time = init_time * 1000;
+    constructor(worktime){
+        this.worktime = worktime * 1000;
         this.startPoint = new Date();
         this.activePoint = new Date();
         this.current_time = 0;
 
-        this.$hour = document.querySelectorAll("#clock .hour span");
-        this.$minute = document.querySelectorAll("#clock .minute span");
-        this.$second = document.querySelectorAll("#clock .second span");
+        this.$app = document.querySelector("#app");
+
+        this.$clock = document.querySelector("#clock");
+        this.$hour = this.$clock.querySelectorAll(".hour span");
+        this.$minute = this.$clock.querySelectorAll(".minute span");
+        this.$second = this.$clock.querySelectorAll(".second span");
 
         this.$processor = document.querySelector("#processor");
         this.$p_line = document.querySelector("#processor .line");
         this.$p_point = document.querySelector("#processor .point");
+
+        this.messages = [
+            "설정 시각이 지났습니다. \n잠시 컴퓨터 하는 것을 멈추고, 스트레칭을 하는 것은 어떨까요?",
+            "설정 시각이 지났어요~\n조금 정도 스트레칭을 해도 괜찮지 않을까요?"
+        ];
 
         this.frame();
     }
 
     frame(){
         let leave = this.activePoint.getTime() - this.startPoint.getTime();
-        this.current_time = this.init_time - leave;
+        this.current_time = this.worktime - leave;
 
         // 제한 시간이 끝났을 때
         if(this.current_time  <= 0 ){
-            toast("10초가 지났습니다.\n신속하게 운동을 해 주시기 바랍니다.");
+            this.$app.classList.add("rest");
+            this.$hour[0].innerText = this.$hour[1].innerText = "0";
+            this.$minute[0].innerText = this.$minute[1].innerText = "0";
+            this.$second[0].innerText = this.$second[1].innerText = "0";
+
+            toast(this.messages[Math.floor(Math.random() * this.messages.length)], () => {
+                this.worktime = 600 * 1000;
+                this.startPoint = new Date();
+                this.activePoint = new Date();
+                log(this.startPoint, this.activePoint);
+                this.frame();
+            });
         }
         // 제한 시간이 남아있을 떄
         else {
@@ -37,7 +56,7 @@ class Clock {
     }
 
     timeUpdate(){
-        let time = Math.floor(this.current_time / 1000);
+        let time = Math.ceil(this.current_time / 1000);
         let hour = Math.floor(time / 3600).toString();
         let minute = Math.floor((time % 3600) / 60).toString();
         let second = (time % 60).toString();
@@ -58,7 +77,7 @@ class Clock {
 
 
     updateProcess(){
-        let percent = 100 - this.current_time * 100 / this.init_time;
+        let percent = 100 - this.current_time * 100 / this.worktime;
 
         this.$p_line.style.width = percent + "%";
         this.$p_point.style.left = percent + "%";
